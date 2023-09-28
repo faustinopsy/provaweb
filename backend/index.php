@@ -2,12 +2,9 @@
 namespace App\Test;
 require "../vendor/autoload.php";
 
-use App\Test\UserTest;
-use App\Test\ProdutoTest;
+use App\Controller\UserController;
+use App\Controller\ProdutoController;
 
-$users = new UserTest();
-$produtos = new ProdutoTest();
+$users = new UserController();
+$produtos = new ProdutoController();
 
-$users->runTests();
-echo "<hr><br>PRODUTOS<br><hr>";
-$produtos->runTests();

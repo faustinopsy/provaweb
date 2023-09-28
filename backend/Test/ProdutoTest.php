@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Test;
+namespace App\Controller;
 
 use App\Model\Model;
 
-class ProdutoTest {
+class ProdutoController {
 
     private $db;
 
