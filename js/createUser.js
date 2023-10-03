@@ -3,6 +3,11 @@ function createUser() {
     const nomeUsuario = document.getElementById('nome').value;
     const emailUsuario = document.getElementById('email').value;
     const senhaUsuario = document.getElementById('senha').value;
+    const cepUsuario = document.getElementById('cep').value;
+    const ruaUsuario = document.getElementById('rua').value;
+    const bairroUsuario = document.getElementById('bairro').value;
+    const cidadeUsuario = document.getElementById('cidade').value;
+    const ufUsuario = document.getElementById('uf').value;
 
     if (!nomeUsuario) {
         alert("Por favor, insira um nome!");
@@ -12,7 +17,12 @@ function createUser() {
     const usuario = {
         nome: nomeUsuario,
         email: emailUsuario,
-        senha: senhaUsuario
+        senha: senhaUsuario,
+        cep: cepUsuario,
+        rua: ruaUsuario,
+        bairro: bairroUsuario,
+        cidade: cidadeUsuario,
+        uf: ufUsuario,
     };
 
     fetch('/backend/usuarios.php', { 
