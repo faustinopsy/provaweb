@@ -156,10 +156,9 @@ public function delete($table, $conditions) {
             cidade TEXT NOT NULL,
             uf TEXT NOT NULL,
             iduser INTEGER,
-            FOREIGN KEY (iduser) REFERENCES users (id) ON DELETE CASCADE
+            FOREIGN KEY (iduser) 
+            REFERENCES users (id) ON DELETE CASCADE
         )";
-        
-        // Executar a query SQL
         $this->conn->exec($sql);
     }
 }
