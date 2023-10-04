@@ -44,14 +44,15 @@ if (cep != "") {
         document.getElementById('uf').value="...";
         document.getElementById('ibge').value="...";
 
-        //Cria um elemento javascript.
-        var script = document.createElement('script');
-
-        //Sincroniza com o callback.
-        script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
-
-        //Insere script no documento e carrega o conteúdo.
-        document.body.appendChild(script);
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+          };
+          
+          fetch("https://viacep.com.br/ws/"+cep+"/json", requestOptions)
+            .then(response => response.json())
+            .then(result => meu_callback(result))
+            .catch(error => console.log('error', error));
 
     } //end if.
     else {
