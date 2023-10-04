@@ -10,6 +10,7 @@ class UserController {
 
     public function __construct() {
         $this->db = new Model();
+        $this->db->criarTabelaEndereco();
     }
     public function select(){
         $user = $this->db->select('users');
