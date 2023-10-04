@@ -161,4 +161,8 @@ public function delete($table, $conditions) {
         )";
         $this->conn->exec($sql);
     }
+    public function ExcluirTabelaEndereco(){
+        $sql = "DROP TABLE endereco";
+        $this->conn->exec($sql);
+    }
 }

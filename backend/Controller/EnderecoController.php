@@ -18,8 +18,18 @@ class EnderecoController {
         
         return  $user;
     }
-    public function insert($data){
-        if($this->db->insert('endereco', $data)){
+    public function insert(){
+
+        if($this->db->insert('endereco', 
+        [
+            'cep'=> $this->endereco->getCep(),
+            'rua'=> $this->endereco->getRua(),
+            'bairro'=>$this->endereco->getBairro(),
+            'cidade'=>$this->endereco->getCidade(),
+            'uf'=>$this->endereco->getUf(),
+            'iduser'=>$this->endereco->getIduser(),
+        ]
+        )){
             return true;
         }
         return false;
