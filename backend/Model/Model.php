@@ -146,4 +146,15 @@ public function delete($table, $conditions) {
         $stmt = $this->conn->prepare($query);
         return $stmt->execute();
     }
+    public function criar(){
+        $sql = "CREATE TABLE IF NOT EXISTS usersx (
+            id INTEGER PRIMARY KEY,
+            name TEXT NOT NULL,
+            email TEXT NOT NULL UNIQUE,
+            password TEXT NOT NULL
+        )";
+        
+        // Executar a query SQL
+        $this->conn->exec($sql);
+    }
 }
