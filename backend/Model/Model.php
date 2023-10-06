@@ -146,15 +146,23 @@ public function delete($table, $conditions) {
         $stmt = $this->conn->prepare($query);
         return $stmt->execute();
     }
-    public function criar(){
-        $sql = "CREATE TABLE IF NOT EXISTS usersx (
-            id INTEGER PRIMARY KEY,
-            name TEXT NOT NULL,
-            email TEXT NOT NULL UNIQUE,
-            password TEXT NOT NULL
+    public function criarTabelaEndereco(){
+        $sql = "
+       CREATE TABLE IF NOT EXISTS endereco (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            cep TEXT NOT NULL,
+            rua TEXT NOT NULL,
+            bairro TEXT NOT NULL,
+            cidade TEXT NOT NULL,
+            uf TEXT NOT NULL,
+            iduser INTEGER,
+            FOREIGN KEY (iduser) 
+            REFERENCES users (id) ON DELETE CASCADE
         )";
-        
-        // Executar a query SQL
+        $this->conn->exec($sql);
+    }
+    public function ExcluirTabelaEndereco(){
+        $sql = "DROP TABLE endereco";
         $this->conn->exec($sql);
     }
 }

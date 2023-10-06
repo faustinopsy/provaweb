@@ -1,5 +1,5 @@
 <?php
-namespace App\Usuario;
+namespace App\Model;
 class Usuario {
     private $id;
     private $nome;
@@ -25,7 +25,7 @@ class Usuario {
         $this->nome = $nome;
     }
     public function getEmail() {
-        return $this->nome;
+        return $this->email;
     }
     public function setEmail($email) {
         $this->email = $email;
