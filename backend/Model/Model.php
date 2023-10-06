@@ -5,11 +5,11 @@ use PDO;
 use PDOException;
  class Model {
  private $host = "localhost";
- private $db_name = "test_drive";
+ private $db_name = "aula";
  private $username = "root";
- private $password = "root123";
+ private $password = "DSMroot123";
  private $conn;
- private $db_type = "sqlite"; // Opções: "mysql", "pgsql", "sqlite", "mssql"
+ private $db_type = "mysql"; // Opções: "mysql", "pgsql", "sqlite", "mssql"
 /*Dependendo do tipo de banco de dados escolhido, você pode precisar ajustar os parâmetros de conexão ($host, $db_name, $username e $password) da seguinte forma:
 
           MySQL:
@@ -148,17 +148,14 @@ public function delete($table, $conditions) {
     }
     public function criarTabelaEndereco(){
         $sql = "
-       CREATE TABLE IF NOT EXISTS endereco (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            cep TEXT NOT NULL,
-            rua TEXT NOT NULL,
-            bairro TEXT NOT NULL,
-            cidade TEXT NOT NULL,
-            uf TEXT NOT NULL,
-            iduser INTEGER,
-            FOREIGN KEY (iduser) 
-            REFERENCES users (id) ON DELETE CASCADE
-        )";
+        CREATE TABLE IF NOT EXISTS `usuarios` (
+            `id` int NOT NULL AUTO_INCREMENT,
+            `nome` varchar(255) DEFAULT NULL,
+            `email` varchar(255) DEFAULT NULL,
+            `senha` varchar(255) DEFAULT NULL,
+            `criado` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (`id`)
+          ) ";
         $this->conn->exec($sql);
     }
     public function ExcluirTabelaEndereco(){
