@@ -2,55 +2,89 @@
 namespace App\Model;
 
 use App\Model\Model;
-use App\Model\ModelORM;
+use DateTime;
 class Pessoa {
-    private $id;
-    private $nome;
-    private $idade;
-    private $email;
+    private int $id;
+    private string $nome;
+    private string $email;
+    private DateTime $dataNascimento;
+
     public $conn;
 
     public function __construct() {
         $this->conn = new Model();
-        $orm = new ModelORM($this->conn);
-        $orm->createTableFromModel($this);
+        $this->conn->createTableFromModel($this);
     }
 
-    public function create() {
-        $stmt = $this->conn->prepare("CALL InsertPessoas(:nome, :idade, :email)");
-        $stmt->bindParam(':nome', $this->nome);
-        $stmt->bindParam(':idade', $this->idade);
-        $stmt->bindParam(':email', $this->email);
-        $stmt->execute();
+    /**
+     * Get the value of id
+     */
+    public function getId(): int
+    {
+        return $this->id;
     }
 
-    public function update() {
-        $stmt = $this->conn->prepare("CALL UpdatePessoas(:id, :nome, :idade, :email)");
-        $stmt->bindParam(':id', $this->id);
-        $stmt->bindParam(':nome', $this->nome);
-        $stmt->bindParam(':idade', $this->idade);
-        $stmt->bindParam(':email', $this->email);
-        $stmt->execute();
+    /**
+     * Set the value of id
+     */
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
-    public function delete() {
-        $stmt = $this->conn->prepare("CALL DeletePessoas(:id)");
-        $stmt->bindParam(':id', $this->id);
-        $stmt->execute();
+    /**
+     * Get the value of nome
+     */
+    public function getNome(): string
+    {
+        return $this->nome;
     }
 
-    public function find($id) {
-        $stmt = $this->conn->prepare("SELECT * FROM Pessoas WHERE id = :id");
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($result) {
-            $this->id = $result['id'];
-            $this->nome = $result['nome'];
-            $this->idade = $result['idade'];
-            $this->email = $result['email'];
-        }
+    /**
+     * Set the value of nome
+     */
+    public function setNome(string $nome): self
+    {
+        $this->nome = $nome;
+
+        return $this;
     }
 
-    // getters e setters para propriedades privadas...
+    /**
+     * Get the value of email
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set the value of email
+     */
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of dataNascimento
+     */
+    public function getDataNascimento(): DateTime
+    {
+        return $this->dataNascimento;
+    }
+
+    /**
+     * Set the value of dataNascimento
+     */
+    public function setDataNascimento(DateTime $dataNascimento): self
+    {
+        $this->dataNascimento = $dataNascimento;
+
+        return $this;
+    }
 }

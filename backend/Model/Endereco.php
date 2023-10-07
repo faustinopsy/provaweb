@@ -1,17 +1,20 @@
 <?php
 
 namespace App\Model;
-
+use App\Model\Model;
 class Endereco{
-
-private $cep;
-private $rua;
-private $bairro;
-private $cidade;
-private $uf;
-private $iduser;
-
-
+private int $id;
+private string $cep;
+private string $rua;
+private string $bairro;
+private string $cidade;
+private string $uf;
+private int $userid;
+public $conn;
+public function __construct() {
+    $this->conn = new Model();
+    $this->conn->createTableFromModel($this);
+}
 /**
  * Get the value of cep
  */
