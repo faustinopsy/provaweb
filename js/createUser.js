@@ -1,5 +1,5 @@
 
-document.getElementById('modalend').addEventListener(function(e){
+document.getElementById('modalend').addEventListener("click",function(e){
 e.preventDefault();
 
 })
@@ -8,6 +8,7 @@ function createUser() {
     const nomeUsuario = document.getElementById('nome').value;
     const emailUsuario = document.getElementById('email').value;
     const senhaUsuario = document.getElementById('senha').value;
+    const nascido = document.getElementById('nascido').value;
     const cepUsuario = document.getElementById('cep').value;
     const ruaUsuario = document.getElementById('rua').value;
     const bairroUsuario = document.getElementById('bairro').value;
@@ -27,6 +28,7 @@ function createUser() {
         nome: nomeUsuario,
         email: emailUsuario,
         senha: senhaUsuario,
+        datanascimento: nascido,
         cep: cepUsuario,
         rua: ruaUsuario,
         bairro: bairroUsuario,

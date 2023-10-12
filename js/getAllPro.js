@@ -1,6 +1,6 @@
 
 function getAll() {
-    fetch('/backend/usuario', {
+    fetch('/backend/produtos.php', {
         method: 'GET'
     })
     .then(response => {
@@ -20,14 +20,14 @@ function getAll() {
 }
 
 function displayUsers(data) {
-    const users = data.usuarios;  
-    const usersDiv = document.getElementById('usersList');
+    const produtos = data.produtos;  
+    const usersDiv = document.getElementById('proList');
     usersDiv.innerHTML = ''; 
 
     const list = document.createElement('ul');
-    users.forEach(user => {
+    produtos.forEach(prod => {
         const listItem = document.createElement('li');
-        listItem.textContent = `${user.id} - ${user.nome} - ${user.type}`;
+        listItem.textContent = `${prod.id} - ${prod.nome} - ${prod.preco}- ${prod.quantidade}`;
         list.appendChild(listItem);
     });
 

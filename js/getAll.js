@@ -13,7 +13,13 @@ function getAll() {
         return response.json();
     })
     .then(data => {
-        displayUsers(data);
+        if(data.status){
+            displayUsers(data);
+            
+        }else{
+            alert("Nenhum resultado encontrado")
+        }
+       
     })
     .catch(error => alert('Erro na requisição: ' + error));
 }

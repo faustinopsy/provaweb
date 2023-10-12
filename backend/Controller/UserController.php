@@ -22,6 +22,11 @@ class UserController {
         
         return  $user;
     }
+    public function selectIdade(){
+        $user = $this->db->select('idades');
+        
+        return  $user;
+    }
     public function selectId($id){
         $user = $this->db->select('users',['id'=>$id]);
         
@@ -31,10 +36,13 @@ class UserController {
         $this->usuario->setNome($data['nome']);
         $this->usuario->setEmail($data['email']);
         $this->usuario->setSenha($data['senha']);
+        $this->usuario->setDataNascimento($data['datanascimento']);
         if($this->db->insert('users', [
             'nome'=> $this->usuario->getNome(),
             'email'=> $this->usuario->getEmail(),
             'senha'=> $this->usuario->getSenha(),
+            'datanascimento'=> $this->usuario->getDataNascimento(),
+
                                                     ])){
            
            $this->endereco->setCep($data['cep']);

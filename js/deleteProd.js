@@ -1,6 +1,6 @@
 function deleteProd() {
     const prodId = document.getElementById("getProdId").value;
-    fetch('/backend/usuario/' + prodId, {
+    fetch('/backend/produtos.php?id=' + prodId, {
         method: 'DELETE'
     })
     .then(response => {
