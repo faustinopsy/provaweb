@@ -1,3 +1,8 @@
+
+document.getElementById('modalend').addEventListener(function(e){
+e.preventDefault();
+
+})
 document.getElementById('submitButton').addEventListener('click', createUser);
 function createUser() {
     const nomeUsuario = document.getElementById('nome').value;
@@ -13,7 +18,11 @@ function createUser() {
         alert("Por favor, insira um nome!");
         return;
     }
-
+    if (!ruaUsuario || !bairroUsuario || !cidadeUsuario || !ufUsuario || !cepUsuario) {
+        alert("Por favor, insira Dados do endereço");
+        document.getElementById('id01').style.display='block';
+        return;
+    }
     const usuario = {
         nome: nomeUsuario,
         email: emailUsuario,

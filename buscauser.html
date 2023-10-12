@@ -3,26 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/w3.css">
     <title>Gerenciamento de Usuários</title>
 </head>
-<body>
+<body class="w3-container">
+    <div class="w3-display-middle w3-card-4">
+        <header class="w3-container w3-blue">
+            <a href="../" class="w3-button w3-white w3-border w3-border-blue">Voltar</a>
+          </header>
+          <div class="w3-container w3-margin-right">
+            <h3>Buscar Usuário</h3>
+            <label for="getUserId">ID do Usuário:</label><br>
+            <input type="number" id="getUserId"><br>
+            <button class="w3-button w3-white w3-border w3-border-blue"onclick="getUser()">Buscar</button>
 
-    <div class="card">
-    <a href="../">Voltar</a>
-    <h3>Buscar Usuário</h3>
-    <label for="getUserId">ID do Usuário:</label>
-    <input type="number" id="getUserId">
-    <button onclick="getUser()">Buscar</button>
-
-    <h3>Gerenciar Usuário</h3>
-    <label for="inpuNome">Nome:</label>
-    <input type="text" id="inpuNome">
-    <label for="email">Email:</label>
-    <input type="text" id="inputEmail">
-    <button onclick="updateUser()">Atualizar</button>
-    <button onclick="deleteUser()">Excluir</button>
-</div>
+            <h3>Gerenciar Usuário</h3><br>
+            <label for="inpuNome">Nome:</label><br>
+            <input type="text" id="inpuNome"><br>
+            <label for="email">Email:</label><br>
+            <input type="text" id="inputEmail"><br>
+            <button class="w3-button w3-white w3-border w3-border-blue"onclick="updateUser()">Atualizar</button>
+            <button class="w3-button w3-white w3-border w3-border-blue"onclick="deleteUser()">Excluir</button>
+        </div>
+    </div>
 
 <script src="js/getUser.js"></script>
 <script src="js/updateUser.js"></script>

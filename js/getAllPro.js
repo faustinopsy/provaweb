@@ -1,5 +1,4 @@
-document.getElementById('getAllButton').addEventListener('click', getAll);
-var token = localStorage.getItem('token');
+
 function getAll() {
     fetch('/backend/usuario', {
         method: 'GET'
