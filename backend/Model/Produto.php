@@ -1,13 +1,15 @@
 <?php
-namespace App\Produto;
+namespace App\Model;
 class Produto {
-    private $id;
-    private $nome;
-    private $preco;
-    private $quantidade;
+    private int $id;
+    private string $nome;
+    private float $preco;
+    private int $quantidade;
+    public $conn;
 
     public function __construct() {
-      
+        $this->conn = new Model();
+        $this->conn->createTableFromModel($this);
     }
 
     public function getId() {

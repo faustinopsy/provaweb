@@ -24,10 +24,6 @@ switch($_SERVER["REQUEST_METHOD"]){
             echo json_encode(["status"=>true,"usuarios"=>$resultado]);
         }else{
             $resultado = $users->selectId($id);
-            if(!$resultado){
-                echo json_encode(["status"=>false]);
-                exit;
-            }
             echo json_encode(["status"=>true,"usuario"=>$resultado[0]]);
         }
        
