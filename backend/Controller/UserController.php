@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Endereco\Endereco;
 use App\Controller\EnderecoController;
 use App\Model\Model;
-use App\Usuario\Usuario;
+use App\Model\Usuario;
 class UserController {
 
     private $db;
