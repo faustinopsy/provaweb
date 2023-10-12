@@ -17,20 +17,14 @@ switch($_SERVER["REQUEST_METHOD"]){
     case "GET";
         if(!isset($_GET['id'])){
             $resultado = $users->select();
-            if(!empty($resultado)){
-                echo json_encode(["status"=>true,"usuarios"=>$resultado]);
-            }else{
+            if(!is_array($resultado)){
                 echo json_encode(["status"=>false]);
+                exit;
             }
-            
+            echo json_encode(["status"=>true,"usuarios"=>$resultado]);
         }else{
             $resultado = $users->selectId($id);
-            if(!empty($resultado)){
-                echo json_encode(["status"=>true,"usuario"=>$resultado[0]]);
-            }else{
-                echo json_encode(["status"=>false]);
-            }
-            
+            echo json_encode(["status"=>true,"usuario"=>$resultado[0]]);
         }
        
     break;

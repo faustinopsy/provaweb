@@ -4,21 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário de Cadastro de produtos</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-    <div class="card">
-    <a href="../">Voltar</a>
-    <form id="prodForm">
-        <label for="Nome">Nome:</label>
-        <input type="text" id="nomeprod" name="nomeprod" required>
-        <label for="Preço">Preço:</label>
-        <input type="text" id="precoprod" name="precoprod" required>
-        <label for="Quantidade">Quantidade:</label>
-        <input type="text" id="quantidadeprod" name="quantidadeprod" required>
-        <button type="button" id="submitButton">Criar Usuário</button>
-    </form>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/w3.css">
+    <body class="w3-container">
+        <div class="w3-display-middle w3-card-4">
+            <header class="w3-container w3-blue">
+                <a href="../" class="w3-button w3-white w3-border w3-border-blue">Voltar</a>
+              </header>
+              <div class="w3-container w3-margin-right">
+                <form id="prodForm">
+                    <label for="Nome">Nome:</label><br>
+                    <input type="text" id="nomeprod" name="nomeprod" required><br>
+                    <label for="Preço">Preço:</label><br>
+                    <input type="text" id="precoprod" name="precoprod" required><br>
+                    <label for="Quantidade">Quantidade:</label><br>
+                    <input type="text" id="quantidadeprod" name="quantidadeprod" required><br>
+                    <button type="button" id="submitButton" class="w3-button w3-white w3-border w3-border-blue">Criar Produto</button>
+                </form>
+                <footer class="w3-container w3-blue">
+                    
+                  </footer>
+              </div>
+           
     </div>
-<script src="js/createProd.js"></script>  <!-- Supondo que sua função esteja em script.js -->
+<script src="js/createProd.js"></script>  
 </body>
 </html>

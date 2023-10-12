@@ -1,7 +1,7 @@
 function getProd() {
     const userId = document.getElementById("getProdId").value;
 
-    fetch('/backend/usuario/' + userId, {
+    fetch('/backend/produtos.php?id=' + userId, {
         method: 'GET'
     })
     .then(response => {
@@ -19,7 +19,9 @@ function getProd() {
             alert('Usuário não encontrado')
             document.getElementById("inpuNome").value = ''; 
         }else{
-            document.getElementById("inpuNome").value = data.usuario.nome; 
+            document.getElementById("inputNome").value = data.produtos.nome; 
+            document.getElementById("inputPreco").value = data.produtos.preco; 
+            document.getElementById("inputQuantidade").value = data.produtos.quantidade; 
         } 
        
     })

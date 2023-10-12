@@ -1,4 +1,3 @@
-document.getElementById('getAllButton').addEventListener('click', getAll);
 function getAll() {
     fetch('/backend/usuarios.php', {
         method: 'GET'
@@ -16,10 +15,11 @@ function getAll() {
     .then(data => {
         if(data.status){
             displayUsers(data);
+            
         }else{
-            alert("Nenhum usuario encontrado");
+            alert("Nenhum resultado encontrado")
         }
-        
+       
     })
     .catch(error => alert('Erro na requisição: ' + error));
 }

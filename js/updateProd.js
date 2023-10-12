@@ -5,7 +5,7 @@ function updateProd() {
         nome: userName
     };
 
-    fetch('/backend/usuario/' + prodId, { 
+    fetch('/backend/produtos.php?id=' + prodId, { 
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'

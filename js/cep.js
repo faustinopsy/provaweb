@@ -49,10 +49,10 @@ if (cep != "") {
             redirect: 'follow'
           };
           
-          fetch("https://viacep.com.br/ws/"+cep+"/json/", requestOptions
-          ).then(response => response.json())
-          .then(data => meu_callback(data))
-          .catch(error => console.log('error', error));
+          fetch("https://viacep.com.br/ws/"+cep+"/json", requestOptions)
+            .then(response => response.json())
+            .then(result => meu_callback(result))
+            .catch(error => console.log('error', error));
 
     } //end if.
     else {

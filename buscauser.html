@@ -3,29 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/w3.css">
+    <link rel="stylesheet" href="css/leaflet.css" />
+    <script src="js/leaflet.js"></script>
     <title>Gerenciamento de Usuários</title>
 </head>
-<body>
+<body class="w3-container">
+    <div class="w3-display-middle w3-card-4">
+        <header class="w3-container w3-blue">
+            <a href="../" class="w3-button w3-white w3-border w3-border-blue">Voltar</a>
+          </header>
+          <div class="w3-container w3-margin-right">
+            <h3>Buscar Usuário</h3>
+            <label for="getUserId">ID do Usuário:</label><br>
+            <input type="number" id="getUserId"><br>
+            <button class="w3-button w3-white w3-border w3-border-blue"onclick="getUser()">Buscar</button>
 
-    <div class="card">
-    <a href="../">Voltar</a>
-    <h3>Buscar Usuário</h3>
-    <label for="getUserId">ID do Usuário:</label>
-    <input type="number" id="getUserId">
-    <button onclick="getUser()">Buscar</button>
+            <h3>Gerenciar Usuário</h3><br>
+            <label for="inpuNome">Nome:</label><br>
+            <input type="text" id="inpuNome"><br>
+            <label for="email">Email:</label><br>
+            <input type="text" id="inputEmail"><br>
+            <button class="w3-button w3-white w3-border w3-border-blue"onclick="updateUser()">Atualizar</button>
+            <button class="w3-button w3-white w3-border w3-border-blue"onclick="deleteUser()">Excluir</button>
+            <button id="modalend" onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">+ Endereço</button>
+        </div>
+    </div>
 
-    <h3>Gerenciar Usuário</h3>
-    <label for="inpuNome">Nome:</label>
-    <input type="text" id="inpuNome">
-    <label for="email">Email:</label>
-    <input type="text" id="inputEmail">
-    <button onclick="updateUser()">Atualizar</button>
-    <button onclick="deleteUser()">Excluir</button>
-</div>
 
+    <div id="id01" class="w3-modal">
+        <div class="w3-row">
+                <div class="w3-modal-content">
+                    <div class="w3-container">
+                      <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                     <form id="form-endereco">
+                      <label>Cep:<br>
+                        <input name="cep" type="text" id="cep" value="" size="10" maxlength="9"
+                               onblur="pesquisacep(this.value);" /></label><br /><br>
+                            <label>Rua:<br>
+                            <input name="endereco" type="text" id="endereco" size="60" /></label><br /><br>
+                            <label>Bairro:<br>
+                            <input name="bairro" type="text" id="bairro" size="40" /></label><br /><br>
+                            <label>Cidade:<br>
+                            <input name="cidade" type="text" id="cidade" size="40" /></label><br /><br>
+                            <label>Estado:<br>
+                            <input name="uf" type="text" id="uf" size="2" /></label><br /><br>
+                            <label>IBGE:<br>
+                            <input name="ibge" type="text" id="ibge" size="8" /></label><br /><br>
+                            <button type="button" id="submitButton" class="w3-button w3-white w3-border w3-border-blue">Criar Endereço</button>
+                          </form>
+                          </div>
+                        </div>
+                <div class="w3-container">  
+                    <div class="w3-modal-content">
+                        <div class="w3-container">
+                            <div id="message-text"></div>
+                            <input name="utmx" type="text" id="utmx" size="2" />
+                            <input name="utmy" type="text" id="utmy" size="2" />
+                            <div id="mapid" style="width: 100%; height: 400px;"></div>
+                        </div>
+                    </div>
+                </div>
+          </div>
+        
+      </div>
+    </div>
 <script src="js/getUser.js"></script>
 <script src="js/updateUser.js"></script>
 <script src="js/deleteUser.js"></script>
+<script src="js/mapa.js"></script>  
 </body>
 </html>

@@ -1,21 +1,21 @@
 document.getElementById('submitButton').addEventListener('click', createUser);
-var token = localStorage.getItem('token');
-function createUser() {
-    const nomeUsuario = document.getElementById('username').value;
 
-    if (!nomeUsuario) {
+function createUser() {
+    const nomeprod = document.getElementById('nomeprod').value;
+    const precoprod = document.getElementById('precoprod').value;
+    const quantidadeprod = document.getElementById('quantidadeprod').value;
+    if (!nomeprod) {
         alert("Por favor, insira um nome!");
         return;
     }
-
     const usuario = {
-        nome: nomeUsuario
+        nome: nomeprod,
+        preco: precoprod,
+        quantidade: quantidadeprod
     };
-
-    fetch('/backend/usuario', { 
+    fetch('/backend/produtos.php', { 
         method: 'POST',
         headers: {
-            'Authorization': token,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(usuario)
@@ -32,9 +32,9 @@ function createUser() {
     })
     .then(data => {
         if(!data.status){
-            alert('Usuário já existe')
+            alert('Produto já existe')
         }else{
-            alert("Usuário criado: " + JSON.stringify(data));
+            alert("Produto criado: " + JSON.stringify(data));
         } 
        
     })
