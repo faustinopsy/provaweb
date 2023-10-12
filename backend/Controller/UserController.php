@@ -18,11 +18,11 @@ class UserController {
         $this->enderecos = new Endereco();
     }
     public function select(){
-        $user = $this->db->select('users');
+        $user = $this->db->select('usuarios');
         return  $user;
     }
     public function selectId($id){
-        $user = $this->db->select('users',['id'=>$id]);
+        $user = $this->db->select('usuarios',['id'=>$id]);
         
         return  $user;
     }
@@ -30,7 +30,7 @@ class UserController {
         $this->usuarios->setNome($data['nome']);
         $this->usuarios->setEmail($data['email']);
         $this->usuarios->setSenha($data['senha']);
-        if($this->db->insert('users', [
+        if($this->db->insert('usuarios', [
         'nome'=> $this->usuarios->getNome(),
         'email'=> $this->usuarios->getEmail(),
         'senha'=>$this->usuarios->getSenha() ])){
@@ -49,13 +49,13 @@ class UserController {
         return false;
     }
     public function update($newData,$condition){
-        if($this->db->update('users', $newData, ['id'=>$condition])){
+        if($this->db->update('usuarios', $newData, ['id'=>$condition])){
             return true;
         }
         return false;
     }
     public function delete( $conditions){
-        if($this->db->delete('users', ['id'=>$conditions])){
+        if($this->db->delete('usuarios', ['id'=>$conditions])){
             return true;
         }
         return false;

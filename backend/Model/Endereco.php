@@ -110,15 +110,15 @@ return $this;
  */
 public function getIduser()
 {
-return $this->iduser;
+return $this->userid;
 }
 
 /**
  * Set the value of iduser
  */
-public function setIduser($iduser): self
+public function setIduser($userid): self
 {
-$this->iduser = $iduser;
+$this->userid = $userid;
 
 return $this;
 }

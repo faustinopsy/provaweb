@@ -1,10 +1,10 @@
 <?php
 namespace App\Model;
 class Produto {
-    private $id;
-    private $nome;
-    private $preco;
-    private $quantidade;
+    private int $id;
+    private string $nome;
+    private float $preco;
+    private int $quantidade;
     public $conn;
 
     public function __construct() {

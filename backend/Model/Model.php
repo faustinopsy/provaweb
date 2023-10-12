@@ -13,33 +13,6 @@ use ReflectionProperty;
  private $password = "root123";
  private $conn;
  private $db_type = "mysql"; // Opções: "mysql", "pgsql", "sqlite", "mssql"
-/*Dependendo do tipo de banco de dados escolhido, você pode precisar ajustar os parâmetros de conexão ($host, $db_name, $username e $password) da seguinte forma:
-
-          MySQL:
-          
-          $host: Endereço do servidor MySQL (por exemplo, 'localhost' ou o IP do servidor)
-          $db_name: Nome do banco de dados MySQL
-          $username: Nome de usuário para acessar o banco de dados MySQL
-          $password: Senha para acessar o banco de dados MySQL
-          PostgreSQL:
-          
-          $host: Endereço do servidor PostgreSQL (por exemplo, 'localhost' ou o IP do servidor)
-          $db_name: Nome do banco de dados PostgreSQL
-          $username: Nome de usuário para acessar o banco de dados PostgreSQL
-          $password: Senha para acessar o banco de dados PostgreSQL
-          SQLite:
-          
-          $host: Não é necessário para SQLite, pois é um banco de dados baseado em arquivo
-          $db_name: Caminho completo para o arquivo do banco de dados SQLite (por exemplo, 'my_database.sqlite')
-          $username: Não é necessário para SQLite
-          $password: Não é necessário para SQLite
-          SQL Server (MSSQL):
-          
-          $host: Endereço do servidor SQL Server (por exemplo, 'localhost' ou o IP do servidor)
-          $db_name: Nome do banco de dados SQL Server
-          $username: Nome de usuário para acessar o banco de dados SQL Server
-          $password: Senha para acessar o banco de dados SQL Server
-          */
 
  public function __construct() {
      $this->connect();
@@ -86,6 +59,65 @@ public function getLastInsertId() {
     return $this->conn->lastInsertId();
 }
 public function insert($table, $data) {
+    $columns = implode(", ", array_keys($data));
+    $placeholders = implode(", ", array_map(function($item) {
+        return ":$item"; 
+    }, array_keys($data)));
+    $query = "INSERT INTO $table ($columns) VALUES ($placeholders)";
+    $stmt = $this->conn->prepare($query);
+    foreach ($data as $key => $value) {
+        $stmt->bindValue(":$key", $value);
+    }
+    return $stmt->execute();
+}
+
+public function select($table, $conditions = []) {
+    $query = "SELECT * FROM $table";
+    if (!empty($conditions)) {
+        $conditionsStr = implode(" AND ", array_map(function($item) {
+        return "$item = :$item";
+        }, array_keys($conditions)));
+        $query .= " WHERE $conditionsStr";
+    }
+    $stmt = $this->conn->prepare($query);
+    foreach ($conditions as $key => $value) {
+        $stmt->bindValue(":$key", $value);
+    }
+    $stmt->execute();
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function update($table, $data, $conditions) {
+    $dataStr = implode(", ", array_map(function($item) {
+        return "$item = :$item"; 
+    }, array_keys($data)));
+    $conditionsStr = implode(" AND ", array_map(function($item) { 
+        return "$item = :condition_$item"; 
+    }, array_keys($conditions)));
+    $query = "UPDATE $table SET $dataStr WHERE $conditionsStr";
+    $stmt = $this->conn->prepare($query);
+    foreach ($data as $key => $value) {
+        $stmt->bindValue(":$key", $value);
+    }
+    foreach ($conditions as $key => $value) {
+        $stmt->bindValue(":condition_$key", $value);
+    }
+return $stmt->execute();
+}
+
+public function delete($table, $conditions) {
+    $conditionsStr = implode(" AND ", array_map(function($item) {
+        return "$item = :$item"; 
+    }, array_keys($conditions)));
+    $query = "DELETE FROM $table WHERE $conditionsStr";
+    $stmt = $this->conn->prepare($query);
+    foreach ($conditions as $key => $value) {
+    $stmt->bindValue(":$key", $value);
+    }
+    return $stmt->execute();
+}
+public function CallInsert($table, $data) {
     $placeholders = implode(", ", array_map(function($item) {
         return ":$item"; 
     }, array_keys($data)));
@@ -97,43 +129,23 @@ public function insert($table, $data) {
     }
     return $stmt->execute();
 }
-
-public function select($table, $conditions = []) {
-        $query = "SELECT * FROM $table";
-        if (!empty($conditions)) {
-            $conditionsStr = implode(" AND ", array_map(function($item) {
-            return "$item = :$item";
-            }, array_keys($conditions)));
-            $query .= " WHERE $conditionsStr";
-        }
+    public function callDelete($table, $conditions) {
+        $conditionPlaceholders = implode(", ", array_map(function($item) {
+            return ":$item";
+        }, array_keys($conditions)));
+        $query = "CALL Delete{$table}({$conditionPlaceholders})";
         $stmt = $this->conn->prepare($query);
         foreach ($conditions as $key => $value) {
             $stmt->bindValue(":$key", $value);
         }
-        $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-public function delete($table, $conditions) {
-    $conditionPlaceholders = implode(", ", array_map(function($item) {
-        return ":$item";
-    }, array_keys($conditions)));
-
-    $query = "CALL Delete{$table}({$conditionPlaceholders})";
-    $stmt = $this->conn->prepare($query);
-    foreach ($conditions as $key => $value) {
-        $stmt->bindValue(":$key", $value);
+        return $stmt->execute();
     }
-    return $stmt->execute();
-}
     public function deleteWithCustomCondition($table, $condition) {
         $query = "DELETE FROM $table WHERE $condition";
         $stmt = $this->conn->prepare($query);
         return $stmt->execute();
     }
 
- 
     private function mapPhpTypeToSqlType($type) {
         switch ($type) {
             case 'int':
@@ -197,14 +209,13 @@ public function delete($table, $conditions) {
             });
         $columnsStr = implode(', ', $columnNamesWithoutId);
         $placeholdersStr = implode(', p_', $placeholders);
-    
         $dropProcedureSQL = "DROP PROCEDURE IF EXISTS Insert{$tableName}";
         $this->conn->exec($dropProcedureSQL);
     
         $sql = "
             CREATE PROCEDURE Insert{$tableName}(".str_replace('id INT,','',str_replace(',',', IN',$placeholdersStr)).")
             BEGIN
-                INSERT INTO {$tableName} (".str_replace('id,','',$columnsStr).") VALUES (".str_replace('id INT,','',str_replace('VARCHAR(255)','',str_replace('DATETIME','',str_replace('FLOAT','',str_replace('BOOLEAN','',$placeholdersStr))))).");
+                INSERT INTO {$tableName} (".str_replace('id,','',$columnsStr).") VALUES (".str_replace('id INT,','',str_replace('INT','',str_replace('VARCHAR(255)','',str_replace('DATETIME','',str_replace('FLOAT','',str_replace('BOOLEAN','',$placeholdersStr)))))).");
             END;
         ";
         $this->conn->exec($sql);
@@ -217,14 +228,11 @@ public function delete($table, $conditions) {
             return "{$colName} = p_{$colName}"; 
         }, $columnsWithoutId);
         $updateStr = implode(', ', $updateStatements);
-    
         $dropProcedureSQL = "DROP PROCEDURE IF EXISTS Update{$tableName}";
         $this->conn->exec($dropProcedureSQL);
-    
         $params = implode(', ', array_map(function($col) {
             return "p_{$col}";
         }, $columnsWithoutId));
-    
         $sql = "
             CREATE PROCEDURE Update{$tableName}(IN id INT, {$params})
             BEGIN
@@ -238,7 +246,6 @@ public function delete($table, $conditions) {
     private function createDeleteProcedure($tableName) {
         $dropProcedureSQL = "DROP PROCEDURE IF EXISTS Delete{$tableName}";
         $this->conn->exec($dropProcedureSQL);
-    
         $sql = "
             CREATE PROCEDURE Delete{$tableName}(IN idx INT)
             BEGIN
@@ -252,7 +259,6 @@ public function delete($table, $conditions) {
     private function createSelectAllProcedure($tableName) {
         $dropProcedureSQL = "DROP PROCEDURE IF EXISTS SelectAll{$tableName}";
         $this->conn->exec($dropProcedureSQL);
-    
         $sql = "
             CREATE PROCEDURE SelectAll{$tableName}()
             BEGIN
@@ -266,7 +272,6 @@ public function delete($table, $conditions) {
     private function createSelectByIdProcedure($tableName) {
         $dropProcedureSQL = "DROP PROCEDURE IF EXISTS SelectById{$tableName}";
         $this->conn->exec($dropProcedureSQL);
-    
         $sql = "
             CREATE PROCEDURE SelectById{$tableName}(IN idx INT)
             BEGIN
