@@ -6,7 +6,10 @@ function updateUser() {
         nome: userName,
         email: userEmail
     };
-
+    if (!userId) {
+        Swal.fire('Por favor, insira um id!')
+        return;
+    }
     fetch('/backend/usuarios.php?id=' + userId, { 
         method: 'PUT',
         headers: {
@@ -26,9 +29,9 @@ function updateUser() {
     })
     .then(data => {
         if(!data.status){
-            alert("Não pode atualizar: ");
+            Swal.fire('Não foi possivel atualizar!')
         }else{
-            alert("Usuário atualizado: " + JSON.stringify(data));
+            Swal.fire('Atualizado com sucesso!')
         } 
         
     })

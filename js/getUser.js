@@ -15,7 +15,7 @@ function getUser() {
     })
     .then(data => {
         if(!data.status){
-            alert('Usuário não encontrado')
+            Swal.fire('Usuário não encontrado!')
             document.getElementById("inpuNome").value = ''; 
         }else{
             document.getElementById("inpuNome").value = data.usuario.nome; 
@@ -23,7 +23,7 @@ function getUser() {
         } 
        
     })
-    .catch(error => alert('Erro na requisição: ' + error));
+    .catch(error =>  Swal.fire('Coloque algum um id válido!'));
 }
 
 document.getElementById('submitButton').addEventListener('click', createEndereco);
@@ -69,9 +69,9 @@ function createEndereco() {
     })
     .then(data => {
         if(!data.status){
-            alert('Usuário já existe')
+            Swal.fire('Usuário já existe!')
         }else{
-            alert("Usuário criado: " + JSON.stringify(data));
+            Swal.fire('Usuário criado!')
         } 
        
     })

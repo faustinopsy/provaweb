@@ -16,11 +16,11 @@ function createUser() {
     const ufUsuario = document.getElementById('uf').value;
 
     if (!nomeUsuario) {
-        alert("Por favor, insira um nome!");
+        Swal.fire('Por favor, insira um nome!')
         return;
     }
     if (!ruaUsuario || !bairroUsuario || !cidadeUsuario || !ufUsuario || !cepUsuario) {
-        alert("Por favor, insira Dados do endereço");
+        Swal.fire('Por favor, insira Dados do endereço')
         document.getElementById('id01').style.display='block';
         return;
     }
@@ -55,9 +55,9 @@ function createUser() {
     })
     .then(data => {
         if(!data.status){
-            alert('Usuário já existe')
+            Swal.fire('Usuário já existe!')
         }else{
-            alert("Usuário criado: " + JSON.stringify(data));
+            Swal.fire('Usuário criado!')
         } 
        
     })

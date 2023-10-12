@@ -1,5 +1,9 @@
 function deleteProd() {
     const prodId = document.getElementById("getProdId").value;
+    if (!prodId) {
+        Swal.fire('Por favor, insira um id!')
+        return;
+    }
     fetch('/backend/produtos.php?id=' + prodId, {
         method: 'DELETE'
     })
@@ -15,12 +19,12 @@ function deleteProd() {
     })
     .then(data => {
         if(!data.status){
-            alert("Não pode Deletar: ");
+            Swal.fire('Não pode Deletar!')
         }else{
-            alert("Usuário deletado: " + JSON.stringify(data));
+            Swal.fire('Excluido com sucesso!')
             document.getElementById("inpuNome").value = ''; 
         } 
         
     })
-    .catch(error => alert('Erro na requisição: ' + error));
+    .catch(error => Swal.fire('Coloque algum um id válido!'));
 }

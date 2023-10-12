@@ -17,7 +17,7 @@ function getAll() {
             displayUsers(data);
             
         }else{
-            alert("Nenhum resultado encontrado")
+            Swal.fire('Nenhum resultado encontrado!')
         }
        
     })

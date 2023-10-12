@@ -32,9 +32,9 @@ function createUser() {
     })
     .then(data => {
         if(!data.status){
-            alert('Produto já existe')
+            Swal.fire('Produto já existe!')
         }else{
-            alert("Produto criado: " + JSON.stringify(data));
+            Swal.fire('Produto criado!')
         } 
        
     })

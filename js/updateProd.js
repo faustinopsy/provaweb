@@ -1,10 +1,17 @@
 function updateProd() {
     const prodId = document.getElementById("getProdId").value;
-    const userName = document.getElementById("inpuNome").value;
+    const nomePro = document.getElementById("inputNome").value;
+    const precoPro = document.getElementById("inputPreco").value;
+    const quantidadePro = document.getElementById("inputQuantidade").value;
     const usuarioAtualizado = {
-        nome: userName
+        nome: nomePro,
+        preco: precoPro,
+        quantidade: quantidadePro
     };
-
+    if (!prodId) {
+        Swal.fire('Por favor, insira um id!')
+        return;
+    }
     fetch('/backend/produtos.php?id=' + prodId, { 
         method: 'PUT',
         headers: {
@@ -24,9 +31,9 @@ function updateProd() {
     })
     .then(data => {
         if(!data.status){
-            alert("Não pode atualizar: ");
+            Swal.fire('Não foi possivel atualizar!')
         }else{
-            alert("Usuário atualizado: " + JSON.stringify(data));
+            Swal.fire('Atualizado com sucesso!')
         } 
         
     })

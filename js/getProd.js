@@ -16,7 +16,7 @@ function getProd() {
     })
     .then(data => {
         if(!data.status){
-            alert('Usuário não encontrado')
+            Swal.fire('Produto não encontrado!')
             document.getElementById("inpuNome").value = ''; 
         }else{
             document.getElementById("inputNome").value = data.produtos.nome; 
@@ -25,5 +25,5 @@ function getProd() {
         } 
        
     })
-    .catch(error => alert('Erro na requisição: ' + error));
+    .catch(error => Swal.fire('Coloque algum um id válido!'));
 }

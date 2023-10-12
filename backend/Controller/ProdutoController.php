@@ -28,13 +28,13 @@ class ProdutoController {
         return false;
     }
     public function update($newData,$conditions){
-        if($this->db->update('produtos', $newData['nome'], $conditions['id'])){
+        if($this->db->update('produtos', $newData, ['id'=>$conditions])){
             return true;
         }
         return false;
     }
     public function delete( $conditions){
-        if($this->db->delete('produtos', $conditions['id'])){
+        if($this->db->delete('produtos', ['id'=>$conditions])){
             return true;
         }
         return false;
