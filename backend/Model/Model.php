@@ -10,7 +10,7 @@ use ReflectionProperty;
  private $host = "localhost";
  private $db_name = "aulafatec";
  private $username = "root";
- private $password = "root123";
+ private $password = "DSMroot123";
  private $conn;
  private $db_type = "sqlite"; // Opções: "mysql", "pgsql", "sqlite", "mssql"
 
