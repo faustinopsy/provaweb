@@ -1,5 +1,5 @@
 function getAll() {
-    fetch('/backend/usuarios.php', {
+    fetch('http://localhost:8082/backend/usuarios.php', {
         method: 'GET'
     })
     .then(response => {
